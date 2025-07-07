@@ -1,5 +1,5 @@
 
-# 🛡️ Linux Slack System Monitor
+# Linux Slack System Monitor
 
 A lightweight system monitoring tool for Linux that alerts you via **Slack** on:
 
@@ -10,7 +10,7 @@ A lightweight system monitoring tool for Linux that alerts you via **Slack** on:
 
 ---
 
-## 🚀 Features
+## Features
 
 | Feature               | Description                                        |
 |------------------------|----------------------------------------------------|
@@ -25,9 +25,9 @@ A lightweight system monitoring tool for Linux that alerts you via **Slack** on:
 
 ---
 
-## 📥 Installation
+## Installation
 
-### ✅ Step 1: Download & Run the Installer
+### Step 1: Download & Run the Installer
 
 Clone the repo or download the ZIP:
 
@@ -44,9 +44,9 @@ You will be prompted to enter:
 
 ---
 
-## 🧠 Slack Setup Guide (Step-by-Step)
+## Slack Setup Guide (Step-by-Step)
 
-### ✅ Step 1: Create a Slack App
+### Step 1: Create a Slack App
 
 1. Go to https://api.slack.com/apps  
 2. Click **"Create New App"**  
@@ -57,7 +57,7 @@ You will be prompted to enter:
 
 ---
 
-### ✅ Step 2: Enable Incoming Webhooks
+### Step 2: Enable Incoming Webhooks
 
 1. In the left menu, click **"Incoming Webhooks"**  
 2. Switch **Activate Incoming Webhooks** to **ON**  
@@ -74,7 +74,7 @@ https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 
 ---
 
-### ✅ Step 3: Invite Your App to the Channel
+### Step 3: Invite Your App to the Channel
 
 Make sure the bot is in your channel:
 
@@ -84,7 +84,7 @@ Make sure the bot is in your channel:
 
 ---
 
-### ✅ Step 4: Enable Mentions
+### Step 4: Enable Mentions
 
 To get notified via `@mention`, enter:
 
@@ -93,7 +93,7 @@ To get notified via `@mention`, enter:
 
 ---
 
-## 🔍 File Structure
+## File Structure
 
 ```bash
 /opt/system-monitor/
@@ -105,9 +105,9 @@ To get notified via `@mention`, enter:
 
 ---
 
-## 🧪 Testing
+## Testing
 
-### ✅ Test RAM/CPU/Network Monitor
+### Test RAM/CPU/Network Monitor
 
 ```bash
 sudo /opt/system-monitor/monitor_system.sh
@@ -115,7 +115,7 @@ sudo /opt/system-monitor/monitor_system.sh
 
 You should receive a Slack alert if usage exceeds thresholds.
 
-### ✅ Test Login Alert
+### Test Login Alert
 
 SSH into the machine as a non-root user from another terminal:
 
@@ -127,7 +127,7 @@ Slack should notify you that `someuser` logged in.
 
 ---
 
-## 🧰 Manage Services
+## Manage Services
 
 ### Monitor System Service
 
@@ -155,7 +155,7 @@ sudo systemctl enable login-alert.service
 
 ---
 
-## 📄 Logs
+## Logs
 
 - System monitor logs: `/var/log/monitor_system.log`
 - Login alerts log: `/var/log/login_alert.log`
@@ -169,7 +169,7 @@ journalctl -u login-alert.service -f
 
 ---
 
-## 🧼 Uninstallation
+## Uninstallation
 
 To remove everything:
 
@@ -190,7 +190,7 @@ sudo rm -f /var/log/monitor_system.log /var/log/login_alert.log
 
 ---
 
-## 💬 FAQ
+## FAQ
 
 ### 🔹 Can I use this on Ubuntu?
 Yes! The script auto-detects `/var/log/auth.log` (Ubuntu) and `/var/log/secure` (CentOS).
@@ -209,14 +209,14 @@ NET_THRESHOLD_MB=100
 
 ---
 
-## 📝 License
+## License
 
 MIT License — free to use, modify, and distribute.
 
 ---
 
-## ✨ Credits
+## Credits
 
 Built by "@unixlabs Adil Hussain" for sysadmins, SREs, and devs who need fast, no-dependency alerts from their servers.
 
-Need advanced monitoring? Ask about Prometheus + Grafana + Slack AlertManager integrations! conteact at Fiverr @openlinux
+Need advanced monitoring? Ask about Prometheus + Grafana + Slack AlertManager integrations! contact at Fiverr @openlinux
