@@ -163,4 +163,14 @@ MIT License — free to use, modify, and distribute.
 
 ## Credits
 
-Built by @unixlabs Adil Hussain for sysadmins, SREs, and devs who want fast, no-dependency alerts from their servers.
+Built and maintained by [@unixlabs Adil Hussain](https://github.com/unixlabs) — for sysadmins, DevOps engineers, and SREs who need **fast, reliable, and no-dependency Slack alerts** from their Linux servers.
+
+Need advanced infrastructure monitoring?
+🔹 Prometheus
+🔹 Grafana dashboards
+🔹 Slack AlertManager integration
+🔹 Kubernetes observability
+🔹 Production-grade alerting systems
+
+➡️ Contact on **Fiverr**: [@openlinux](https://www.fiverr.com/openlinux)
+
