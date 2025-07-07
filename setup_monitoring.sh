@@ -6,7 +6,7 @@ SYSTEMD_DIR="/etc/systemd/system"
 CONFIG_FILE="$INSTALL_DIR/monitor_config.env"
 
 read -p "Enter your Slack Webhook URL: " SLACK_WEBHOOK_URL
-read -p "Enter Slack user/tag to mention (e.g. @adil): " SLACK_TAG
+read -p "Enter Slack user/tag to mention (e.g. @Tony): " SLACK_TAG
 
 # ------------------ NETWORK IFACE ----------------
 DEFAULT_IFACE=$(ip route | grep default | awk '{print $5}')
@@ -24,6 +24,7 @@ cat > "$CONFIG_FILE" <<EOF
 SLACK_WEBHOOK_URL="$SLACK_WEBHOOK_URL"
 SLACK_TAG="$SLACK_TAG"
 NET_IFACE="$DEFAULT_IFACE"
+HOSTNAME="$(hostname)"
 EOF
 chmod 600 "$CONFIG_FILE"
 
@@ -34,9 +35,7 @@ source /opt/system-monitor/monitor_config.env
 while true; do
     usage=$(free | awk '/Mem:/ { printf("%.0f", $3/$2 * 100) }')
     if [ "$usage" -ge 90 ]; then
-        curl -s -X POST -H 'Content-type: application/json' \
-        --data "{\"text\":\"🔥 High RAM usage: ${usage}% ${SLACK_TAG}\"}" \
-        "$SLACK_WEBHOOK_URL"
+        curl -s -X POST -H 'Content-type: application/json'         --data "{"text":"🔹 [${HOSTNAME}] High RAM usage: ${usage}% ${SLACK_TAG}"}"         "$SLACK_WEBHOOK_URL"
     fi
     sleep 60
 done
@@ -50,9 +49,7 @@ while true; do
     usage=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
     usage_int=${usage%.*}
     if [ "$usage_int" -ge 90 ]; then
-        curl -s -X POST -H 'Content-type: application/json' \
-        --data "{\"text\":\"🔥 High CPU usage: ${usage_int}% ${SLACK_TAG}\"}" \
-        "$SLACK_WEBHOOK_URL"
+        curl -s -X POST -H 'Content-type: application/json'         --data "{"text":"🔹 [${HOSTNAME}] High CPU usage: ${usage_int}% ${SLACK_TAG}"}"         "$SLACK_WEBHOOK_URL"
     fi
     sleep 60
 done
@@ -75,9 +72,7 @@ while true; do
     total=$((rx_rate + tx_rate))
 
     if [ "$total" -ge 100 ]; then
-        curl -s -X POST -H 'Content-type: application/json' \
-        --data "{\"text\":\"📶 High Network Usage: ${total}MB/min on $IFACE ${SLACK_TAG}\"}" \
-        "$SLACK_WEBHOOK_URL"
+        curl -s -X POST -H 'Content-type: application/json'         --data "{"text":"🔹 [${HOSTNAME}] High Network Usage: ${total}MB/min on $IFACE ${SLACK_TAG}"}"         "$SLACK_WEBHOOK_URL"
     fi
 done
 EOF
@@ -90,9 +85,7 @@ journalctl -f -u ssh.service | while read line; do
     if echo "$line" | grep -q "Accepted"; then
         user=$(echo "$line" | awk '{for(i=1;i<=NF;i++) if ($i=="for") print $(i+1)}')
         if [ "$user" != "root" ]; then
-            curl -s -X POST -H 'Content-type: application/json' \
-            --data "{\"text\":\"🧑‍💻 Login detected for user *$user* ${SLACK_TAG}\"}" \
-            "$SLACK_WEBHOOK_URL"
+            curl -s -X POST -H 'Content-type: application/json'             --data "{"text":"🔹 [${HOSTNAME}] Login detected for user *$user* ${SLACK_TAG}"}"             "$SLACK_WEBHOOK_URL"
         fi
     fi
 done
@@ -129,7 +122,5 @@ create_service net_monitor "Network Traffic Monitor"
 create_service login_alert "Login Alert Monitor"
 
 # ------------------- DONE -------------------
-echo "✅ Monitoring tools installed!"
-echo "✅ systemd services running:"
+echo "✅ Monitoring tools installed and running!"
 systemctl status ram_monitor.service cpu_monitor.service net_monitor.service login_alert.service --no-pager
-
